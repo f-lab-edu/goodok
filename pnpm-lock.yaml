@@ -23,6 +23,9 @@ importers:
       react-dom:
         specifier: ^19.0.0
         version: 19.1.0(react@19.1.0)
+      react-simplikit:
+        specifier: ^0.0.29
+        version: 0.0.29(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3
@@ -1676,6 +1679,12 @@ packages:
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+
+  react-simplikit@0.0.29:
+    resolution: {integrity: sha512-8EK+tu7YdhQXPd8Z9vMgcrfYnYr22zM5e8h36fM/nyLY7frzp2EnGZ4EPXJTccC38kB56PFkvOh0Tnt3lBWHBQ==}
+    peerDependencies:
+      react: '*'
+      react-dom: '*'
 
   react@19.1.0:
     resolution: {integrity: sha512-FS+XFBNvn3GTAWq26joslQgWNoFu08F4kl0J4CgdNKADkdSGXQyTCnKteIAJy96Br6YbpEU1LSzV5dYtjMkMDg==}
@@ -3623,6 +3632,11 @@ snapshots:
       scheduler: 0.26.0
 
   react-is@16.13.1: {}
+
+  react-simplikit@0.0.29(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+    dependencies:
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
 
   react@19.1.0: {}
 
