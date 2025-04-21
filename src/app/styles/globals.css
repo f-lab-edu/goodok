@@ -24,3 +24,7 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+#__next {
+  @apply mx-auto min-h-screen max-w-[480px] shadow-md;
+}
