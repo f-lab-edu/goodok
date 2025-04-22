@@ -20,6 +20,9 @@ importers:
       '@mui/material':
         specifier: ^7.0.2
         version: 7.0.2(@emotion/react@11.14.0(@types/react@19.1.2)(react@19.1.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@19.1.2)(react@19.1.0))(@types/react@19.1.2)(react@19.1.0))(@types/react@19.1.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@use-funnel/next':
+        specifier: ^0.0.14
+        version: 0.0.14(next@15.3.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
       es-toolkit:
         specifier: ^1.35.0
         version: 1.35.0
@@ -811,6 +814,17 @@ packages:
     resolution: {integrity: sha512-uNnVmvDLZBDQ4sLFNTugTtzUH9LEoHXG46HdWaih+pK4knwi+wcz+nd0fQC92n/dH4PwPc5T8XArvlCKpfU6vQ==}
     cpu: [x64]
     os: [win32]
+
+  '@use-funnel/core@0.0.11':
+    resolution: {integrity: sha512-a0T4mWXeL+ouMXtmyZn8MbrPZd9JgvFP9iAGAiaiuCvU3tj1jEWCvRjWfLVup3otH/3BBpf4zyi/v28/eLR9PQ==}
+    peerDependencies:
+      react: '>=16.8'
+
+  '@use-funnel/next@0.0.14':
+    resolution: {integrity: sha512-+/56pXHHNi7LCdsJWYVgQYT6skRuaZTwu5i1bKX3FRK6fERgudkLv9hq19g/elOtT45cklcraJfnAKrNhjJoEA==}
+    peerDependencies:
+      next: '>=12'
+      react: '>=16.8'
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -2994,6 +3008,16 @@ snapshots:
 
   '@unrs/resolver-binding-win32-x64-msvc@1.6.1':
     optional: true
+
+  '@use-funnel/core@0.0.11(react@19.1.0)':
+    dependencies:
+      react: 19.1.0
+
+  '@use-funnel/next@0.0.14(next@15.3.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      '@use-funnel/core': 0.0.11(react@19.1.0)
+      next: 15.3.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      react: 19.1.0
 
   acorn-jsx@5.3.2(acorn@8.14.1):
     dependencies:

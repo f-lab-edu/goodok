@@ -24,6 +24,7 @@
     "@emotion/styled": "^11.14.0",
     "@hookform/resolvers": "^5.0.1",
     "@mui/material": "^7.0.2",
+    "@use-funnel/next": "^0.0.14",
     "es-toolkit": "^1.35.0",
     "next": "15.3.1",
     "overlay-kit": "^1.7.0",
