@@ -6,6 +6,7 @@ import { fetchCurrentUser } from '@/entities/user';
 import { SubscribeFunnelType } from '../model/subscribe-funnel-type';
 import PlanStep from './steps/plan-step';
 import ProfileStep from './steps/profile-step';
+import PaymentStep from './steps/payment-step';
 
 async function defaultValues(): Promise<SubscriptionSchema> {
   const user = await fetchCurrentUser();
@@ -14,6 +15,8 @@ async function defaultValues(): Promise<SubscriptionSchema> {
     name: user.name,
     email: user.email,
     planId: '',
+    paymentMethodId: 0,
+    couponId: 0,
   };
 }
 
@@ -35,7 +38,8 @@ export default function SubscribeFunnel() {
     <FormProvider {...methods}>
       <funnel.Render
         plan={({ history }) => <PlanStep onNext={() => history.push('profile')} />}
-        profile={() => <ProfileStep />}
+        profile={({ history }) => <ProfileStep onNext={() => history.push('payment')} />}
+        payment={() => <PaymentStep />}
       />
     </FormProvider>
   );
