@@ -7,6 +7,7 @@ import { SubscribeFunnelType } from '../model/subscribe-funnel-type';
 import PlanStep from './steps/plan-step';
 import ProfileStep from './steps/profile-step';
 import PaymentStep from './steps/payment-step';
+import CheckoutStep from './steps/checkout-step';
 
 async function defaultValues(): Promise<SubscriptionSchema> {
   const user = await fetchCurrentUser();
@@ -39,7 +40,8 @@ export default function SubscribeFunnel() {
       <funnel.Render
         plan={({ history }) => <PlanStep onNext={() => history.push('profile')} />}
         profile={({ history }) => <ProfileStep onNext={() => history.push('payment')} />}
-        payment={() => <PaymentStep />}
+        payment={({ history }) => <PaymentStep onNext={() => history.push('checkout')} />}
+        checkout={() => <CheckoutStep />}
       />
     </FormProvider>
   );
