@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@hookform/devtools": "^4.4.0",
     "@tailwindcss/postcss": "^4",
     "@tanstack/react-query-devtools": "^5.74.4",
     "@types/node": "^20",
