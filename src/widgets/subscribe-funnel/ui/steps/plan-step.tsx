@@ -1,42 +1,41 @@
-import { useState } from 'react';
 import { isNil, isNotNil } from 'es-toolkit';
-import { Button, Stack } from '@mui/material';
+import { Controller, useFormContext } from 'react-hook-form';
+import { Button } from '@mui/material';
 import { FunnelStep } from '@/shared/ui/funnel-step';
-import { Plan, PlanCard, usePlans } from '@/entities/plan';
+import { QueryBoundary } from '@/shared/ui/query-boundary';
+import { SelectablePlanList } from '@/features/select-plan';
+import { SubscriptionSchema } from '@/entities/subscription';
 
 interface PlanStepProps {
-  onNext?: (plan: Plan) => void;
+  onNext?: () => void;
 }
 
 export default function PlanStep({ onNext }: PlanStepProps) {
-  const plans = usePlans();
+  const { control, watch } = useFormContext<SubscriptionSchema>();
 
-  const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
+  const selectedPlanId = watch('planId');
 
   const handleNext = () => {
-    if (isNotNil(selectedPlan)) {
-      onNext?.(selectedPlan);
+    if (isNotNil(selectedPlanId)) {
+      onNext?.();
     }
   };
 
   return (
     <FunnelStep title="구독 플랜 선택">
-      <Stack spacing={2}>
-        {plans.map((plan) => (
-          <PlanCard
-            key={plan.id}
-            plan={plan}
-            selected={selectedPlan?.id === plan.id}
-            onClick={() => setSelectedPlan(plan)}
-          />
-        ))}
-      </Stack>
+      <QueryBoundary>
+        <Controller
+          control={control}
+          name="planId"
+          render={({ field }) => <SelectablePlanList {...field} />}
+        />
+      </QueryBoundary>
       <Button
         variant="contained"
         size="large"
         fullWidth
         sx={{ mt: 4 }}
-        disabled={isNil(selectedPlan)}
+        disabled={isNil(selectedPlanId)}
         onClick={handleNext}
       >
         다음
