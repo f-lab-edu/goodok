@@ -1,48 +1,34 @@
-import { FormProvider, useForm } from 'react-hook-form';
 import { useFunnel } from '@use-funnel/next';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { subscriptionSchema, SubscriptionSchema } from '@/entities/subscription';
-import { fetchCurrentUser } from '@/entities/user';
-import { SubscribeFunnelType } from '../model/subscribe-funnel-type';
+import { subscribeFunnelSteps } from '../model/subscribe-funnel-type';
 import PlanStep from './steps/plan-step';
 import ProfileStep from './steps/profile-step';
 import PaymentStep from './steps/payment-step';
 import CheckoutStep from './steps/checkout-step';
-
-async function defaultValues(): Promise<SubscriptionSchema> {
-  const user = await fetchCurrentUser();
-
-  return {
-    name: user.name,
-    email: user.email,
-    planId: '',
-    paymentMethodId: 0,
-    couponId: 0,
-  };
-}
+import { OverlayProvider } from 'overlay-kit';
 
 export default function SubscribeFunnel() {
-  const funnel = useFunnel<SubscribeFunnelType>({
+  const funnel = useFunnel({
     id: 'subscribe-funnel',
+    steps: subscribeFunnelSteps,
     initial: {
       step: 'plan',
       context: {},
     },
   });
 
-  const methods = useForm<SubscriptionSchema>({
-    resolver: zodResolver(subscriptionSchema),
-    defaultValues,
-  });
-
   return (
-    <FormProvider {...methods}>
+    <OverlayProvider>
       <funnel.Render
-        plan={({ history }) => <PlanStep onNext={() => history.push('profile')} />}
-        profile={({ history }) => <ProfileStep onNext={() => history.push('payment')} />}
-        payment={({ history }) => <PaymentStep onNext={() => history.push('checkout')} />}
-        checkout={() => <CheckoutStep />}
+        plan={({ history }) => <PlanStep onNext={(planId) => history.push('profile', { planId })} />}
+        profile={({ history }) => <ProfileStep onNext={(profile) => history.push('payment', { profile })} />}
+        payment={({ context, history }) => (
+          <PaymentStep
+            planId={context.planId}
+            onNext={(payment) => history.push('checkout', { payment })}
+          />
+        )}
+        checkout={({ context }) => <CheckoutStep subscription={context} />}
       />
-    </FormProvider>
+    </OverlayProvider>
   );
 }

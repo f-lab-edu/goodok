@@ -4,10 +4,15 @@ import { usePlanPrice } from '../../../model/use-plan-price';
 import { useSelectedCoupon } from '../../../model/use-selected-coupon';
 import { useFinalPrice } from '../../../model/use-final-price';
 
-export default function PriceSummary() {
-  const planPrice = usePlanPrice();
-  const selectedCoupon = useSelectedCoupon();
-  const finalPrice = useFinalPrice();
+interface PriceSummaryProps {
+  planId: string;
+  couponId?: number;
+}
+
+export default function PriceSummary({ planId, couponId }: PriceSummaryProps) {
+  const planPrice = usePlanPrice(planId);
+  const selectedCoupon = useSelectedCoupon(couponId);
+  const finalPrice = useFinalPrice(planId, couponId);
 
   return (
     <Box mt={4}>

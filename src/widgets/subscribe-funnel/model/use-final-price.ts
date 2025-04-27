@@ -3,9 +3,9 @@ import { isNotNil } from 'es-toolkit';
 import { usePlanPrice } from './use-plan-price';
 import { useSelectedCoupon } from './use-selected-coupon';
 
-export function useFinalPrice() {
-  const planPrice = usePlanPrice();
-  const selectedCoupon = useSelectedCoupon();
+export function useFinalPrice(planId: string, couponId?: number) {
+  const planPrice = usePlanPrice(planId);
+  const selectedCoupon = useSelectedCoupon(couponId);
 
   return useMemo(() => {
     if (isNotNil(selectedCoupon)) {

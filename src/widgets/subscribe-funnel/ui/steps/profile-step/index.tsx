@@ -1,36 +1,72 @@
-import { useFormContext } from 'react-hook-form';
-import { Button, Box } from '@mui/material';
+import { useForm } from 'react-hook-form';
+import { Button, Box, Stack, TextField } from '@mui/material';
 import { FunnelStep } from '@/shared/ui/funnel-step';
-import { QueryBoundary } from '@/shared/ui/query-boundary';
-import { SubscriptionSchema } from '@/entities/subscription';
-import ProfileField from './profile-field';
+import { subscribeFunnelSchema } from '../../../model/subscribe-funnel-type';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { fetchCurrentUser } from '@/entities/user';
+
+const profileSchema = subscribeFunnelSchema.shape.profile;
+
+type ProfileStepSchema = z.infer<typeof profileSchema>;
+
+async function defaultValues(): Promise<ProfileStepSchema> {
+  const user = await fetchCurrentUser();
+
+  return {
+    name: user.name,
+    email: user.email,
+  };
+}
 
 interface ProfileStepProps {
-  onNext?: () => void;
+  onNext?: (profile: ProfileStepSchema) => void;
 }
 
 const ProfileStep = ({ onNext }: ProfileStepProps) => {
-  const { watch } = useFormContext<SubscriptionSchema>();
+  const {
+    register,
+    formState: { isValid },
+    handleSubmit,
+  } = useForm<ProfileStepSchema>({
+    resolver: zodResolver(profileSchema),
+    mode: 'onChange',
+    defaultValues,
+  });
 
-  const isValid = watch('name') && watch('email');
+  const onSubmit = (data: ProfileStepSchema) => {
+    onNext?.(data);
+  };
 
   return (
-    <FunnelStep title="프로필 입력">
-      <QueryBoundary>
-        <ProfileField />
-      </QueryBoundary>
-      <Box mt={4}>
-        <Button
-          variant="contained"
-          size="large"
-          fullWidth
-          disabled={!isValid}
-          onClick={onNext}
-        >
-          다음
-        </Button>
-      </Box>
-    </FunnelStep>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <FunnelStep title="프로필 입력">
+        <Stack spacing={2}>
+          <TextField
+            label="이름"
+            fullWidth
+            {...register('name')}
+          />
+          <TextField
+            label="이메일"
+            type="email"
+            fullWidth
+            {...register('email')}
+          />
+        </Stack>
+        <Box mt={4}>
+          <Button
+            type="submit"
+            variant="contained"
+            size="large"
+            fullWidth
+            disabled={!isValid}
+          >
+            다음
+          </Button>
+        </Box>
+      </FunnelStep>
+    </form>
   );
 };
 

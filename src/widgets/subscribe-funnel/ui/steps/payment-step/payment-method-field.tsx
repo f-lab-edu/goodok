@@ -1,10 +1,10 @@
 import { Controller, useFormContext } from 'react-hook-form';
 import { Box, Button, RadioGroup, FormControlLabel, Radio } from '@mui/material';
 import { usePaymentMethods } from '@/entities/payment-method';
-import { SubscriptionSchema } from '@/entities/subscription';
+import { PaymentStepSchema } from '.';
 
 export default function PaymentMethodField() {
-  const { control } = useFormContext<SubscriptionSchema>();
+  const { control } = useFormContext<PaymentStepSchema>();
 
   const paymentMethods = usePaymentMethods();
 

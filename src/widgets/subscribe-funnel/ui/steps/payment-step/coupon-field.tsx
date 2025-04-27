@@ -1,7 +1,7 @@
 import { Controller, useFormContext } from 'react-hook-form';
 import { Typography, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 import { useCoupons } from '@/entities/coupon';
-import { SubscriptionSchema } from '@/entities/subscription';
+import { PaymentStepSchema } from '.';
 
 const defaultCoupon = {
   id: 0,
@@ -12,7 +12,7 @@ const defaultCoupon = {
 };
 
 export default function CouponField() {
-  const { control } = useFormContext<SubscriptionSchema>();
+  const { control } = useFormContext<PaymentStepSchema>();
 
   const coupons = useCoupons();
   const couponOptions = [defaultCoupon, ...coupons];

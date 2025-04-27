@@ -1,17 +1,23 @@
-import { useFormContext } from 'react-hook-form';
 import { Button, Typography, Divider, Card, CardContent, Stack } from '@mui/material';
 import { FunnelStep } from '@/shared/ui/funnel-step';
 import { useCoupons } from '@/entities/coupon';
 import { usePaymentMethods } from '@/entities/payment-method';
 import { usePlans } from '@/entities/plan';
-import { SubscriptionSchema } from '@/entities/subscription';
 import { useFinalPrice } from '../../../model/use-final-price';
 import { usePlanPrice } from '../../../model/use-plan-price';
+import { SubscribeFunnelSchema } from '@/widgets/subscribe-funnel/model/subscribe-funnel-type';
+import { useCheckout } from '@/entities/subscription';
 
-const CheckoutStep = () => {
-  const { getValues } = useFormContext<SubscriptionSchema>();
+interface CheckoutStepProps {
+  subscription: SubscribeFunnelSchema;
+}
 
-  const { planId, name, email, paymentMethodId, couponId } = getValues();
+const CheckoutStep = ({ subscription }: CheckoutStepProps) => {
+  const {
+    planId,
+    profile: { name, email },
+    payment: { paymentMethodId, couponId },
+  } = subscription;
 
   const plans = usePlans();
 
@@ -32,8 +38,14 @@ const CheckoutStep = () => {
     couponDiscount: coupon?.value,
   };
 
-  const planPrice = usePlanPrice();
-  const finalPrice = useFinalPrice();
+  const planPrice = usePlanPrice(planId);
+  const finalPrice = useFinalPrice(planId, couponId);
+
+  const { checkout } = useCheckout();
+
+  const handleCheckout = () => {
+    checkout({ planId, name, email, paymentMethodId, couponId });
+  };
 
   return (
     <FunnelStep title="최종 확인">
@@ -126,6 +138,7 @@ const CheckoutStep = () => {
         variant="contained"
         size="large"
         fullWidth
+        onClick={handleCheckout}
       >
         구독 완료
       </Button>
