@@ -1,9 +1,9 @@
 import { isNotNil } from 'es-toolkit';
-import { usePlanPrice } from './use-plan-price';
+import { useSelectedPlanPrice } from './use-plan-price';
 import { useSelectedCoupon } from './use-selected-coupon';
 
 export function useFinalPrice(planId: string, couponId?: number) {
-  const planPrice = usePlanPrice(planId);
+  const planPrice = useSelectedPlanPrice(planId);
   const selectedCoupon = useSelectedCoupon(couponId);
 
   if (isNotNil(selectedCoupon)) {

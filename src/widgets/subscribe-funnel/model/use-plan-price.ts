@@ -1,5 +1,5 @@
-import { usePlans } from '@/entities/plan';
+import { useSelectedPlan } from './use-selected-plan';
 
-export function usePlanPrice(planId: string) {
-  return usePlans().find((p) => p.id === planId)?.price ?? 0;
+export function useSelectedPlanPrice(planId: string) {
+  return useSelectedPlan(planId)?.price ?? 0;
 }

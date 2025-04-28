@@ -3,6 +3,7 @@ import { subscribeFunnelSteps } from '../model/subscribe-funnel-type';
 import PlanStep from './steps/plan-step';
 import ProfileStep from './steps/profile-step';
 import PaymentStep from './steps/payment-step';
+import CheckoutStep from './steps/checkout-step';
 
 export default function SubscribeFunnel() {
   const funnel = useFunnel({
@@ -18,7 +19,13 @@ export default function SubscribeFunnel() {
     <funnel.Render
       plan={({ history }) => <PlanStep onNext={(planId) => history.push('profile', { planId })} />}
       profile={({ history }) => <ProfileStep onNext={(profile) => history.push('payment', { profile })} />}
-      payment={({ context }) => <PaymentStep planId={context.planId} />}
+      payment={({ context, history }) => (
+        <PaymentStep
+          planId={context.planId}
+          onNext={(payment) => history.push('checkout', { payment })}
+        />
+      )}
+      checkout={({ context }) => <CheckoutStep subscription={context} />}
     />
   );
 }
