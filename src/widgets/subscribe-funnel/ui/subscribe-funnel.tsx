@@ -1,26 +1,16 @@
-import { FormProvider, useForm } from 'react-hook-form';
 import { useFunnel } from '@use-funnel/next';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { subscriptionSchema, SubscriptionSchema } from '@/entities/subscription';
-import { SubscribeFunnelType } from '../model/subscribe-funnel-type';
+import { subscribeFunnelSteps } from '../model/subscribe-funnel-type';
 import PlanStep from './steps/plan-step';
 
 export default function SubscribeFunnel() {
-  const funnel = useFunnel<SubscribeFunnelType>({
+  const funnel = useFunnel({
     id: 'subscribe-funnel',
+    steps: subscribeFunnelSteps,
     initial: {
       step: 'plan',
       context: {},
     },
   });
 
-  const methods = useForm<SubscriptionSchema>({
-    resolver: zodResolver(subscriptionSchema),
-  });
-
-  return (
-    <FormProvider {...methods}>
-      <funnel.Render plan={() => <PlanStep />} />
-    </FormProvider>
-  );
+  return <funnel.Render plan={() => <PlanStep />} />;
 }
