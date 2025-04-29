@@ -17,9 +17,11 @@ export type SubscribeFunnelSchema = z.infer<typeof subscribeFunnelSchema>;
 export const planStepSchema = subscribeFunnelSchema.partial();
 export const profileStepSchema = planStepSchema.required({ planId: true });
 export const paymentStepSchema = profileStepSchema.required({ profile: true });
+export const checkoutStepSchema = paymentStepSchema.required({ payment: true });
 
 export const subscribeFunnelSteps = {
   plan: { parse: planStepSchema.parse },
   profile: { parse: profileStepSchema.parse },
   payment: { parse: paymentStepSchema.parse },
+  checkout: { parse: checkoutStepSchema.parse },
 };

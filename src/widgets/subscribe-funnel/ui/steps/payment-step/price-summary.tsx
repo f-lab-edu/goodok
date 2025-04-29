@@ -1,7 +1,7 @@
 import { isNotNil } from 'es-toolkit';
 import { useFormContext } from 'react-hook-form';
 import { Box, Typography, Divider, Stack } from '@mui/material';
-import { usePlanPrice } from '../../../model/use-plan-price';
+import { useSelectedPlanPrice } from '../../../model/use-plan-price';
 import { useSelectedCoupon } from '../../../model/use-selected-coupon';
 import { useFinalPrice } from '../../../model/use-final-price';
 import { PaymentStepSchema } from '.';
@@ -14,7 +14,7 @@ export default function PriceSummary({ planId }: PriceSummaryProps) {
   const { watch } = useFormContext<PaymentStepSchema>();
   const couponId = watch('couponId');
 
-  const planPrice = usePlanPrice(planId);
+  const planPrice = useSelectedPlanPrice(planId);
   const selectedCoupon = useSelectedCoupon(couponId);
   const finalPrice = useFinalPrice(planId, couponId);
 
