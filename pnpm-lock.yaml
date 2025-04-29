@@ -23,9 +23,15 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.74.4
         version: 5.74.4(react@19.1.0)
+      '@use-funnel/next':
+        specifier: ^0.0.14
+        version: 0.0.14(next@15.3.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
       es-toolkit:
         specifier: ^1.35.0
         version: 1.35.0
+      ky:
+        specifier: ^1.8.1
+        version: 1.8.1
       next:
         specifier: 15.3.1
         version: 15.3.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -847,6 +853,17 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@use-funnel/core@0.0.11':
+    resolution: {integrity: sha512-a0T4mWXeL+ouMXtmyZn8MbrPZd9JgvFP9iAGAiaiuCvU3tj1jEWCvRjWfLVup3otH/3BBpf4zyi/v28/eLR9PQ==}
+    peerDependencies:
+      react: '>=16.8'
+
+  '@use-funnel/next@0.0.14':
+    resolution: {integrity: sha512-+/56pXHHNi7LCdsJWYVgQYT6skRuaZTwu5i1bKX3FRK6fERgudkLv9hq19g/elOtT45cklcraJfnAKrNhjJoEA==}
+    peerDependencies:
+      next: '>=12'
+      react: '>=16.8'
+
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
     peerDependencies:
@@ -1619,6 +1636,10 @@ packages:
 
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
+
+  ky@1.8.1:
+    resolution: {integrity: sha512-7Bp3TpsE+L+TARSnnDpk3xg8Idi8RwSLdj6CMbNWoOARIrGrbuLGusV0dYwbZOm4bB3jHNxSw8Wk/ByDqJEnDw==}
+    engines: {node: '>=18'}
 
   language-subtag-registry@0.3.23:
     resolution: {integrity: sha512-0K65Lea881pHotoGEa5gDlMxt3pctLi2RplBb7Ezh4rRdLEOtgi7n4EwK9lamnUCkKBqaeKRVebTq6BAxSkpXQ==}
@@ -3090,6 +3111,16 @@ snapshots:
   '@unrs/resolver-binding-win32-x64-msvc@1.6.1':
     optional: true
 
+  '@use-funnel/core@0.0.11(react@19.1.0)':
+    dependencies:
+      react: 19.1.0
+
+  '@use-funnel/next@0.0.14(next@15.3.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      '@use-funnel/core': 0.0.11(react@19.1.0)
+      next: 15.3.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      react: 19.1.0
+
   acorn-jsx@5.3.2(acorn@8.14.1):
     dependencies:
       acorn: 8.14.1
@@ -4033,6 +4064,8 @@ snapshots:
   keyv@4.5.4:
     dependencies:
       json-buffer: 3.0.1
+
+  ky@1.8.1: {}
 
   language-subtag-registry@0.3.23: {}
 

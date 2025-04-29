@@ -1,4 +1,5 @@
 import { Box, Button, Typography, Container } from '@mui/material';
+import Link from 'next/link';
 
 export default function HomePage() {
   return (
@@ -28,13 +29,15 @@ export default function HomePage() {
         >
           나에게 꼭 맞는 플랜을 찾아보세요
         </Typography>
-        <Button
-          variant="contained"
-          size="large"
-          fullWidth
-        >
-          구독하기
-        </Button>
+        <Link href="/subscribe">
+          <Button
+            variant="contained"
+            size="large"
+            fullWidth
+          >
+            구독하기
+          </Button>
+        </Link>
       </Container>
     </Box>
   );
